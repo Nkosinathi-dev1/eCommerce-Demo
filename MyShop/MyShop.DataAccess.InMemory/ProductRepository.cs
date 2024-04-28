@@ -24,7 +24,8 @@ namespace MyShop.DataAccess.InMemory
         public ProductRepository()
         {
             products = cache["products"] as List<Product>;
-            if (products != null)
+            //create new instrance if null
+            if (products == null)
             {
                 products = new List<Product>();
             }

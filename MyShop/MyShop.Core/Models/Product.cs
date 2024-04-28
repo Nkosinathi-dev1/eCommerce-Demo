@@ -15,14 +15,14 @@ namespace MyShop.Core.Models
         [StringLength(50)]
         [DisplayName("Product Name")]
         public string Name { get; set; }
-        public string Descreption { get; set; }
+        public string Description { get; set; }
         [Range(0, 10000)]
         public decimal Price { get; set; }
         public string Category { get; set; }
         public string Image { get; set; }
 
         //constructor
-        Product()
+        public Product()
         {
             this.Id = Guid.NewGuid().ToString();
         }
