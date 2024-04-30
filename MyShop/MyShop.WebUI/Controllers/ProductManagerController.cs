@@ -4,16 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MyShop.Core.Models;
+using MyShop.Core.ViewModels;
 using MyShop.DataAccess.InMemory;
 
 namespace MyShop.WebUI.Controllers
 {
     public class ProductManagerController : Controller
     {
-        /// <summary>
-        /// instance of ProductRepository from MyShop.DataAccess.InMemory;
-        /// </summary>
+        //instance of ProductRepository from MyShop.DataAccess.InMemory;
         ProductRepository contex;
+        //instance of contexCategories from MyShop.DataAccess.InMemory;
+        ProductCategoryRepository contexCategories;
 
 
         /// <summary>
@@ -22,6 +23,7 @@ namespace MyShop.WebUI.Controllers
         public ProductManagerController()
         {
             contex = new ProductRepository();
+            contexCategories = new ProductCategoryRepository();
         }
         // GET: ProductManager
         /// <summary>
@@ -41,8 +43,10 @@ namespace MyShop.WebUI.Controllers
         /// <returns></returns>
         public ActionResult Create()
         {
-            Product product = new Product();
-            return View(product);
+            ProductManagerViewModel viewModel = new ProductManagerViewModel();
+            viewModel.Product = new Product();
+            viewModel.ProductCategories = contexCategories.Collection();
+            return View(viewModel);
         }
 
         /// <summary>
@@ -79,7 +83,12 @@ namespace MyShop.WebUI.Controllers
             {
                 return HttpNotFound();
             }
-            return View(product);
+
+            ProductManagerViewModel viewModel = new ProductManagerViewModel();
+            viewModel.Product = product;
+            viewModel.ProductCategories = contexCategories.Collection();
+
+            return View(viewModel);
         }
 
         /// <summary>
