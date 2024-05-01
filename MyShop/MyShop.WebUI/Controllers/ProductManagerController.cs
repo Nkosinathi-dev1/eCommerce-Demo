@@ -11,19 +11,18 @@ namespace MyShop.WebUI.Controllers
 {
     public class ProductManagerController : Controller
     {
-        //instance of ProductRepository from MyShop.DataAccess.InMemory;
-        ProductRepository contex;
-        //instance of contexCategories from MyShop.DataAccess.InMemory;
-        ProductCategoryRepository contexCategories;
+        //instance of InMemoryRepository<>
+        InMemoryRepository<Product> contex;
+        InMemoryRepository<ProductCategory> contexCategories;
 
 
         /// <summary>
-        /// constructor that ProductRepository 
+        /// constructor 
         /// </summary>
         public ProductManagerController()
         {
-            contex = new ProductRepository();
-            contexCategories = new ProductCategoryRepository();
+            contex = new InMemoryRepository<Product>();
+            contexCategories = new InMemoryRepository<ProductCategory>();
         }
         // GET: ProductManager
         /// <summary>
