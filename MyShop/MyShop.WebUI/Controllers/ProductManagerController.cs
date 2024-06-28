@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -57,13 +58,18 @@ namespace MyShop.WebUI.Controllers
         /// <param name="product"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Create(Product product)
+        public ActionResult Create(Product product, HttpPostedFileBase file)
         {
             if (!ModelState.IsValid)
             {
                 return View(product);
             }
 
+            if (file != null)
+            {
+                product.Image = product.Id + Path.GetExtension(file.FileName);
+                file.SaveAs(Server.MapPath("//Content//ProductImages//") + product.Image);
+            }
             contex.Insert(product);
             contex.Commit();
             return RedirectToAction("Index");
@@ -100,7 +106,7 @@ namespace MyShop.WebUI.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Edit(Product product, string id)
+        public ActionResult Edit(Product product, string id, HttpPostedFileBase file)
         {
             Product productToEndit = contex.Find(id);
             if (productToEndit == null)
@@ -113,11 +119,16 @@ namespace MyShop.WebUI.Controllers
                 return View(product);
             }
 
+            if (file != null)
+            {
+                productToEndit.Image = product.Id + Path.GetExtension(file.FileName);
+                file.SaveAs(Server.MapPath("//Content//ProductImages//") + productToEndit.Image);
+            }
             productToEndit.Name = product.Name;
             productToEndit.Description = product.Description;
             productToEndit.Price = product.Price;
             productToEndit.Category = product.Category;
-            productToEndit.Image = product.Image;
+
 
             contex.Commit();
             return RedirectToAction("Index");
