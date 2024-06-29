@@ -1,5 +1,6 @@
 ﻿using MyShop.Core.Contracts;
 using MyShop.Core.Models;
+using MyShop.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,10 +24,25 @@ namespace MyShop.WebUI.Controllers
         }
 
 
-        public ActionResult Index()
+        public ActionResult Index(string Category = null)
         {
-            List<Product> products = contex.Collection().ToList();
-            return View(products);
+            List<Product> products;
+            List<ProductCategory> categories = contexCategories.Collection().ToList();
+            if (Category == null)
+            {
+                products = contex.Collection().ToList();
+            }
+            else
+            {
+                products = contex.Collection().Where(p => p.Category == Category).ToList();
+            }
+
+            ProductListViewModel model = new ProductListViewModel();
+            model.Products = products;
+            model.ProductCategories = categories;
+
+
+            return View(model);
         }
 
         public ActionResult Details(string id)
