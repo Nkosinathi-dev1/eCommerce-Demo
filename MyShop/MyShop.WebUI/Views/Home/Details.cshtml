@@ -29,7 +29,7 @@
                 R @Html.DisplayFor(model => model.Price)
             </dd>
             <dt></dt>
-            <dd><a href="#" class="btn btn-light">Add to cart</a></dd>
+            <dd><a href="@Url.Action("AddToCart", "Cart", new {Id=Model.Id})" class="btn btn-light">Add to cart</a></dd>
             <dt></dt>
             <dd>@Html.ActionLink("Back to List", "Index")</dd>
         </dl>
