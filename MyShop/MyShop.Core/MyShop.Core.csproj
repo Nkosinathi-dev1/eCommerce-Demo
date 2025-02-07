@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Contracts\ICartService.cs" />
     <Compile Include="Contracts\IRepository.cs" />
+    <Compile Include="Enums\UserType.cs" />
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\CartItem.cs" />
